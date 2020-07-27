@@ -60,11 +60,11 @@ class AnalyticsView(generics.ListAPIView):
     serializer_class = LikeSerializer
 
     def get(self, request, *args, **kwargs):
-        likes_analitic = Like.objects.filter(like_published__range=[kwargs['date_from'], kwargs['date_to']])
+        analytic = Like.objects.filter(like_published__range=[kwargs['date_from'], kwargs['date_to']])
 
-        if len(likes_analitic) > 0:
+        if len(analytic) > 0:
             mimetype = 'application/json'
-            return HttpResponse(json.dumps({'likes by period': len(likes_analitic)}), mimetype)
+            return HttpResponse(json.dumps({'likes by period': len(analytic)}), mimetype)
 
         else:
             return self.list(request, *args, [{}])
@@ -86,7 +86,6 @@ def login(request):
         return Response({'Error': 'Please provide both username and password'},
                         status=HTTP_400_BAD_REQUEST)
 
-    user = authenticate(username=username, password=password)
     user = SocialUser.objects.get(username=username, password=password)
 
     if request.user.is_authenticated:
@@ -100,5 +99,7 @@ def login(request):
                         status=HTTP_404_NOT_FOUND)
 
     token, _ = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key},
-                    status=HTTP_200_OK)
+    return Response(
+        {'token': token.key},
+        status=HTTP_200_OK,
+    )

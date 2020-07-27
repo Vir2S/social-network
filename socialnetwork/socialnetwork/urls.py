@@ -27,7 +27,7 @@ urlpatterns = [
     path('posts_list/', PostListView.as_view(), name='posts_list'),
     path('post/<int:post_pk>/<int:user_pk>/like/', PostLikeView.as_view(), name='post_like'),
     path('post/<int:post_pk>/<int:user_pk>/dislike/', PostDislikeView.as_view(), name='post_dislike'),
-    path('post/analytics/?date_from=<date_from>&date_to=<date_to>/', AnalyticsView.as_view(), name='post_likes'),
+    path('post/analytics/date_from=<date_from>&date_to=<date_to>/', AnalyticsView.as_view(), name='post_likes'),
 
     path('user_activity/<int:pk>', ActivityUserView.as_view(), name='user_activity'),
 

@@ -18,8 +18,6 @@ class Post(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Author post',
     )
-    likes = models.IntegerField(default=0)
-    dislikes = models.IntegerField(default=0)
 
 
 class Like(models.Model):
